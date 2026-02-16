@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+ <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="css/index.css">  
+  <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  <title>PochiAfrica</title>
+</head>
+<style>
+    
+.loading-container {
+    max-width: 480px;
+    margin: auto auto;
+    width: 90%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 48px;
+    padding: 48px 32px;
+    box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+
+
+.loading-container.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Logo / brand */
+.logo-area {
+    margin-bottom: 32px;
+}
+
+.logo-icon {
+    font-size: 52px;
+    color: #38bdf8;
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    margin-bottom: 8px;
+}
+
+.app-name {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(to right, #facc15, #38bdf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 4px;
+}
+
+.tagline {
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Loading animation */
+.loader-section {
+    margin: 40px 0 32px;
+}
+
+.spinner-ring {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 24px;
+    animation: spinner-ring 1.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.spinner-ring div {
+    box-sizing: border-box;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 6px solid transparent;
+    border-radius: 50%;
+    animation: spinner-ring 1.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #38bdf8 transparent transparent transparent;
+}
+
+.spinner-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.spinner-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.spinner-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes spinner-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: #f1f5f9;
+    margin-bottom: 8px;
+}
+
+.loading-sub {
+    font-size: 14px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.loading-sub i {
+    color: #facc15;
+    font-size: 12px;
+}
+
+/* Progress bar */
+.progress-track {
+    background: #1e2a44;
+    height: 8px;
+    border-radius: 100px;
+    margin: 32px 0 16px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 65%;
+    height: 100%;
+    background: linear-gradient(90deg, #facc15, #38bdf8);
+    border-radius: 100px;
+    animation: progressPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes progressPulse {
+    0% {
+        width: 40%;
+        opacity: 0.8;
+    }
+    50% {
+        width: 75%;
+        opacity: 1;
+    }
+    100% {
+        width: 40%;
+        opacity: 0.8;
+    }
+}
+
+/* User skeleton */
+.user-preview {
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 100px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+}
+
+.avatar-skeleton {
+    width: 40px;
+    height: 40px;
+    background: #334155;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 20px;
+    animation: pulse 1.5s infinite;
+}
+
+.text-skeleton {
+    flex: 1;
+    text-align: left;
+}
+
+.text-line {
+    height: 12px;
+    width: 120px;
+    background: #334155;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    animation: pulse 1.5s infinite;
+}
+
+.text-line.short {
+    width: 80px;
+    margin-bottom: 0;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.footer-note {
+    margin-top: 32px;
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.footer-note i {
+    margin-right: 4px;
+}
+
+.greeting {
+    background: rgba(56, 189, 248, 0.1);
+    padding: 4px 12px;
+    border-radius: 100px;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7dd3fc;
+    margin-bottom: 8px;
+    border: 0.5px solid rgba(56, 189, 248, 0.3);
+} 
+
+</style>
+
+<body>
+    
+
+  <div class="loading-container">
+   <!-- Branding -->
+   <div class="logo-area">
+            <div class="logo-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="app-name">FinLog</div>
+            <div class="tagline">track • analyse • decide</div>
+        </div>
+
+        <!-- subtle greeting / after-login context -->
+        <div class="greeting">
+            <i class="fas fa-shield-alt" style="margin-right: 6px;"></i> secure session
+        </div>
+
+        <!-- animated loader -->
+        <div class="loader-section">
+            <div class="spinner-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="loading-text">
+                loading your financial data
+            </div>
+            <div class="loading-sub">
+                <i class="fas fa-lock" style="opacity: 0.8;"></i>
+                <span>syncing accounts • transactions • reports</span>
+            </div>
+        </div>
+
+        <!-- smooth progress bar (animated width) -->
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
+
+        <!-- skeleton preview: mimics user data loading -->
+        <div class="user-preview">
+            <div class="avatar-skeleton">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="text-skeleton">
+                <div class="text-line"></div>
+                <div class="text-line short"></div>
+            </div>
+            <div style="color: #38bdf8;">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+
+        <!-- small stats / fake indicators – makes it feel alive -->
+        <div style="display: flex; justify-content: space-between; margin-top: 24px; color: #94a3b8; font-size: 13px;">
+            <span><i class="fas fa-wallet" style="margin-right: 6px; color: #facc15;"></i> Track</span>
+            <span><i class="fas fa-arrow-up" style="margin-right: 6px; color: #4ade80;"></i> Grow</span>
+            <span><i class="fas fa-calendar" style="margin-right: 6px;"></i> stay Updated</span>
+        </div>
+
+        <!-- extra context -->
+        <div class="footer-note">
+            <span><i class="far fa-clock"></i> just a moment</span>
+            <span><i class="fas fa-shield"></i> encrypted</span>
+        </div>
+    </div>
+
+         
+  
+ 
+ 
+
+  <!-- ################ -->
+
+  <div id="allAccountsContainer" class="page">
+    <div class="head">
+      <div class="headLine">
+        <i class="fas fa-arrow-left back"></i>
+        <h2>My Accounts</h2>
+      </div>
+      <div class="allAccountsSlide">
+        <button class="tabBtn active" data-index="0">Local Accounts</button>
+        <button class="tabBtn" data-index="1">My Investments</button>
+      </div>
+      <div class="allAccountsSlider"></div>
+    </div>
+    <div class="carouselContainer" id="carousel">
+      <div id="locals"></div>
+      <div id="investments"></div>
+    </div>
+  </div>
+  
+   
+  
+    <!-- ################ -->
+
+  <div class="productsContainer page">
+      
+    <div class="head-alt">
+      <div class="cancelButton back">
+        <i class="fas fa-arrow-left"></i> Back
+      </div> 
+      <h3>Create Account</h3> 
+    </div>
+      
+   
+    
+    <div class="top">            
+      <i class="fas fa-user-circle"></i>
+      <div class="welcome-text">
+        <div class="username">Joseph</div>
+        <div class="usermail">@mail</div>
+      </div>                                        
+    </div>
+    
+    <div class="newAccountOptions">
+      <button id="customAccount">Custom Account🔥 <i class="fas fa-plus"></i></button>
+      
+      <button id="filterAccount">Filter Account <i class="fas fa-plus"></i></button>
+      
+    </div>        
+    <div id="products"></div>
+   
+  </div>
+  
+  <!-- ############################# -->
+           <!-- Calculator -->
+  <!-- ############################# -->
+  
+  <div class="page" id="finCalcPage" role="region" aria-label="Financial Calculator">
+    <div class="calcHeader">
+      <button class="backBtn back" id="backBtn" aria-label="Back to dashboard">← Back</button>
+      <div>
+        <div class="calcTitle">FinLog</div>
+        <div class="small helper">Your financial partner</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Inputs -->
+      <div class="inputsContainer">
+        <div class="card" role="form" aria-labelledby="calc-type">
+          <div id="calc-type" class="label">Calculator</div>
+          <div class="pills" role="tablist" aria-label="Calculator types">
+            <button class="pill active" data-tab="simple" role="tab" aria-selected="true">Simple Interest</button>
+            <button class="pill" data-tab="compound" role="tab" aria-selected="false">Compound Interest</button>
+            <button class="pill" data-tab="rate" role="tab" aria-selected="false">Rate Calculator</button>
+            <button class="pill" data-tab="time" role="tab" aria-selected="false">Time to Target</button>
+          </div>
+
+          <!-- Inputs for different tabs -->
+          <div id="formsRoot">
+            <!-- SIMPLE -->
+            <div class="formSet" data-form="simple">
+              <div class="row col">
+                <div class="input">
+                  <label class="label">Principal (KES)</label>
+                  <input type="number" id="simplePrincipal" min="0" step="0.01" placeholder="e.g. 350000" />
+                </div>
+                <div class="input">
+                  <label class="label">Annual Rate (%)</label>
+                  <input type="number" id="simpleRate" min="0" step="0.01" placeholder="e.g. 10" />
+                </div>
+                <div class="input">
+                  <label class="label">Time (years)</label>
+                  <input type="number" id="simpleTime" min="0" step="0.01" placeholder="e.g. 1" />
+                </div>
+              </div>
+              <div class="row help">
+                <div class="helper">Simple interest is calculated on the principal only.</div>
+              </div>
+            </div>
+
+            <!-- COMPOUND -->
+            <div class="formSet" data-form="compound" style="display:none">
+              <div class="row">
+                <div class="input">
+                  <label class="label">Principal (KES)</label>
+                  <input type="number" id="cmpPrincipal" min="0" step="0.01" placeholder="e.g. 350000" />
+                </div>
+                <div class="input">
+                  <label class="label">Annual Rate (%)</label>
+                  <input type="number" id="cmpRate" min="0" step="0.01" placeholder="e.g. 10" />
+                </div>
+                <div class="input">
+                  <label class="label">Time (years)</label>
+                  <input type="number" id="cmpTime" min="0" step="0.01" placeholder="e.g. 1" />
+                </div>
+                <div class="input">
+                  <label class="label">Compounding</label>
+                  <select id="cmpFreq" aria-label="Compounding frequency">
+                    <option value="365">Daily</option>
+                    <option value="12" selected>Monthly</option>
+                    <option value="4">Quarterly</option>
+                    <option value="2">Semi-Annually</option>
+                    <option value="1">Annually</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row help">
+                <div class="helper">Compound interest compounds on accumulated amount at each period.</div>
+              </div>
+            </div>
+
+            <!-- RATE: given P, A, T -> find annual rate (effective) -->
+            <div class="formSet" data-form="rate" style="display:none">
+              <div class="row">
+                <div class="input">
+                  <label class="label">Principal (P)</label>
+                  <input type="number" id="rateP" min="0" step="0.01" placeholder="e.g. 10000" />
+                </div>
+                <div class="input">
+                  <label class="label">Final Amount (A)</label>
+                  <input type="number" id="rateA" min="0" step="0.01" placeholder="e.g. 11000" />
+                </div>
+                <div class="input">
+                  <label class="label">Time (years)</label>
+                  <input type="number" id="rateT" min="0" step="0.01" placeholder="e.g. 1" />
+                </div>
+                <div class="input">
+                  <label class="label">Compounding (n)</label>
+                  <select id="rateN">
+                    <option value="365">Daily</option>
+                    <option value="12" selected>Monthly</option>
+                    <option value="4">Quarterly</option>
+                    <option value="2">Semi-Annually</option>
+                    <option value="1">Annually</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row help">
+                <div class="helper">This returns the effective annual interest rate that turns P into A in T years (compounded).</div>
+              </div>
+            </div>
+
+            <!-- TIME: given P, A, R -> find time (years) -->
+            <div class="formSet" data-form="time" style="display:none">
+              <div class="row">
+                <div class="input">
+                  <label class="label">Principal (P)</label>
+                  <input type="number" id="timeP" min="0" step="0.01" placeholder="e.g. 10000" />
+                </div>
+                <div class="input">
+                  <label class="label">Target (A)</label>
+                  <input type="number" id="timeA" min="0" step="0.01" placeholder="e.g. 12000" />
+                </div>
+                <div class="input">
+                  <label class="label">Annual Rate (%)</label>
+                  <input type="number" id="timeR" min="0" step="0.01" placeholder="e.g. 10" />
+                </div>
+                <div class="input">
+                  <label class="label">Compounding</label>
+                  <select id="timeN">
+                    <option value="365">Daily</option>
+                    <option value="12" selected>Monthly</option>
+                    <option value="4">Quarterly</option>
+                    <option value="2">Semi-Annually</option>
+                    <option value="1">Annually</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row help">
+                <div class="helper">Time returned is in years (can be fractional). For simple interest set compounding to "Annually" and treat as simple by dividing appropriately.</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="formError" class="err" style="display:none" role="alert"></div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="resultsContainer">
+        <div class="card">
+          <div class="summaryLarge" aria-live="polite">
+            <div class="smallNote">Result summary</div>
+            <div class="bigNumber" id="resultMain">—</div>
+            <div class="smallNote" id="resultSub">Enter values to see results</div>
+          </div>
+
+          <div class="smallNote">Breakdown</div>
+          <div class="breakdown" id="breakdown">
+            <div class="box">
+              <div class="num" id="daily">—</div>
+              <div class="lbl">Daily</div>
+            </div>
+            <div class="box">
+              <div class="num" id="weekly">—</div>
+              <div class="lbl">Weekly</div>
+            </div>
+            <div class="box">
+              <div class="num" id="monthly">—</div>
+              <div class="lbl">Monthly</div>
+            </div>
+            <div class="box">
+              <div class="num" id="quarterly">—</div>
+              <div class="lbl">Quarterly</div>
+            </div>
+            <div class="box">
+              <div class="num" id="semi">—</div>
+              <div class="lbl">Half-year</div>
+            </div>
+            <div class="box">
+              <div class="num" id="annual">—</div>
+              <div class="lbl">Annual</div>
+            </div>
+          </div>
+
+          <div class="explain" id="explain">No calculation yet.</div>
+
+          <div class="bottomBar">
+            <button class="btn ghost" id="resetBtn">Reset</button>
+            <button class="btn primary" id="saveBtn">Save Calculation</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- ############################### -->
+   
+  <div class="page transfer-page" id="transferPage">
+    <div class="head">
+        <div class="cancelButton back">
+            <i class="fas fa-arrow-left"></i> Back
+        </div>
+        <h2>Transaction</h2>
+    </div>
+
+    <div class="transferCards">
+        <!-- Top Up -->
+        <div class="transaction-card" id="topup-card">
+            <div class="card-icon topup-icon"><i class="fas fa-wallet"></i></div>
+            <div class="card-content">
+                <h3>Top Up</h3>
+                <p>Add money from external sources like bank or card</p>
+            </div>
+        </div>
+
+        <!-- Transfer -->
+        <div class="transaction-card" id="transfer-card">
+            <div class="card-icon transfer-icon"><i class="fas fa-exchange-alt"></i></div>
+            <div class="card-content">
+                <h3>Transfer</h3>
+                <p>Move funds between your FinLog accounts</p>
+            </div>
+        </div>
+
+        <!-- Spend -->
+        <div class="transaction-card" id="spend-card">
+            <div class="card-icon spend-icon"><i class="fas fa-arrow-up-from-bracket"></i></div>
+            <div class="card-content">
+                <h3>Spend</h3>
+                <p>Withdraw or record external spending</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="noContent">Select a transaction type to continue</p>
+  </div>
+  
+<script src="js/utilities.js"></script>  
+<script>
+let loaderInterval = null; // prevents duplicates
+
+function ShowloadData(state = false) {
+    const loader = document.querySelector(".loading-container");
+    const statusEl = document.querySelector(".loading-sub span");
+    const iconEl = document.querySelector(".loading-sub i");
+
+    const messages = [
+        "fetching transactions...",
+        "analysing spending patterns",
+        "preparing reports",
+        "calculating net worth",
+        "syncing your data"
+    ];
+
+    // TURN OFF LOADER
+    if (!state) {
+        loader.classList.remove("active");
+        if (loaderInterval) clearInterval(loaderInterval); // stop interval
+        loaderInterval = null;
+        return;
+    }
+
+    if (loaderInterval) return; 
+
+    // TURN ON LOADER
+    loader.classList.add("active");
+
+    let index = 0;
+
+    loaderInterval = setInterval(() => {
+        if (statusEl) {
+            statusEl.textContent = messages[index % messages.length];
+        }
+
+        if (iconEl) {
+            iconEl.className = (index % 2 === 0)
+                ? "fas fa-sync-alt"
+                : "fas fa-lock";
+        }
+
+        index++;
+    }, 1900);
+}
+</script>
+    <!-- ############################### -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <script src="js/net.js"></script>
+  
+  <script src="js/assets.js"></script>
+  <script src="js/router.js"></script>  
+  <script src="js/helpers.js"></script>
+     
+  <script src="js/auth.js"></script>   
+  <script src="js/settings.js"></script>
+  <script src="js/mydata.js"></script> 
+  
+  <script src="js/uicomponents.js"></script>    
+  <script src="js/calculator.js"></script>
+  <script src="js/index.js"></script>   
+  
+</body>
+</html>

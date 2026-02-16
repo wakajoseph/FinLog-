@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About FinLog</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base */
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #1abc9c;
+      --light: #f8f9fa;
+      --dark: #1c2833;
+      --gray: #7f8c8d;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, var(--dark) 0%, var(--primary) 100%);
+      color: #fff;
+      padding: 18px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .header .back {
+      cursor: pointer;
+      margin-right: 20px;
+      font-size: 22px;
+      transition: var(--transition);
+      background: rgba(255, 255, 255, 0.1);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .header .back:hover {
+      color: var(--accent);
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-4px);
+    }
+
+    .header span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main content container */
+    .content {
+      max-width: 1100px;
+      width: 95%;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 50px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .content:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+    }
+
+    /* Headings */
+    h2 {
+      margin-top: 0;
+      color: var(--primary);
+      text-align: center;
+      font-size: 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      margin-bottom: 10px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(to right, var(--secondary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .tagline {
+      text-align: center;
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h3 {
+      margin-top: 40px;
+      color: var(--primary);
+      font-size: 24px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content : center ;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(44, 62, 80, 0.1);
+    }
+
+    h3 i {
+      margin-right: 15px;
+      color: var(--secondary);
+      background: rgba(52, 152, 219, 0.1);
+      padding : 10px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    p, li {
+      margin: 15px 0;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    ul {
+      margin-left: 30px;
+    }
+    
+    li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 5px;
+    }
+    
+    li:before {
+      content: '•';
+      color: var(--accent);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+      font-size: 20px;
+    }
+
+    a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border-bottom: 1px solid transparent;
+    }
+    
+    a:hover {
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    /* Feature boxes */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-top: 30px;
+    }
+    
+    .feature-card {
+      flex: 1 1 250px;
+      background: var(--light);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, var(--secondary), var(--accent));
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-card i {
+      font-size: 32px;
+      color: var(--secondary);
+      margin-bottom: 15px;
+      background: rgba(52, 152, 219, 0.1);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .feature-card h4 {
+      margin: 12px 0;
+      font-size: 20px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .feature-card p {
+      font-size: 16px;
+      color: var(--gray);
+    }
+
+    /* Highlighted text */
+    .highlight {
+      background: linear-gradient(120deg, rgba(26, 188, 156, 0.15) 0%, rgba(52, 152, 219, 0.15) 100%);
+      padding: 25px;
+      border-radius: 12px;
+      margin: 25px 0;
+      border-left: 5px solid var(--accent);
+    }
+    
+    .highlight p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin: 50px 0 20px 0;
+      color: var(--gray);
+      font-size: 15px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .content {
+        padding: 40px 30px;
+      }
+      
+      h2 {
+        font-size: 32px;
+      }
+      
+      h3 {
+        font-size: 22px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .content {
+        padding: 30px 20px;
+      }
+      
+      h2 {
+        font-size: 28px;
+      }
+      
+      h3 {
+        font-size: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      h3 i {
+        margin-bottom: 10px;
+        width: 45px;
+        height: 45px;
+      }
+      
+      .header span {
+        font-size: 22px;
+      }
+      
+      .feature-card {
+        flex: 1 1 100%;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header {
+        padding: 15px 20px;
+      }
+      
+      .header span {
+        font-size: 20px;
+      }
+      
+      h2 {
+        font-size: 26px;
+      }
+      
+      .tagline {
+        font-size: 16px;
+      }
+      
+      p, li {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="back" onclick="window.history.back();">
+      <i class="fas fa-arrow-left"></i>
+    </div>
+    <span>About FinLog</span>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h2>FinLog Expense Tracker</h2>
+    <p class="tagline">Take control of your finances with intelligent tracking and insightful analytics</p>
+    
+    <div class="highlight">
+      <p>FinLog is a cloud-based expense tracking and financial management app designed to help users monitor spending, plan budgets, and achieve financial goals. Since it is <strong>internet-dependent</strong>, all your data is synchronized securely across devices, providing seamless access anywhere.</p>
+    </div>
+
+    <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+    <p>To empower users to take control of their finances, understand spending patterns, and make smarter decisions with a simple, intuitive interface.</p>
+
+    <h3><i class="fas fa-eye"></i> Our Vision</h3>
+    <p>To become the most user-friendly, secure, and insightful expense tracker for individuals who want to track, save, and plan without hassle.</p>
+
+    <h3><i class="fas fa-cogs"></i> Key Features</h3>
+    <div class="features">
+      <div class="feature-card">
+        <i class="fas fa-wallet"></i>
+        <h4>Track Expenses</h4>
+        <p>Record daily spending, categorize transactions, and monitor cash flow in real-time with detailed insights.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-piggy-bank"></i>
+        <h4>Budget Planning</h4>
+        <p>Set budgets for categories like food, transport, and entertainment to manage spending efficiently.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-lock"></i>
+        <h4>Security & Privacy</h4>
+        <p>We recommend using alternate account details. Passwords and PINs are securely stored with encryption.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-chart-line"></i>
+        <h4>Reports & Insights</h4>
+        <p>Visualize your spending trends and get insights to make better financial decisions.</p>
+      </div>
+    </div>
+
+    <h3><i class="fas fa-shield-alt"></i> Privacy & Security</h3>
+    <ul>
+      <li>Do not use real banking accounts or sensitive personal data.</li>
+      <li>Create strong passwords and PINs. Do not share them with anyone.</li>
+      <li>All data is encrypted and stored on secure servers with industry-standard protection.</li>
+      <li>Your information is never sold to third parties.</li>
+      <li>Regular security audits ensure your data remains protected.</li>
+    </ul>
+
+    <h3><i class="fas fa-info-circle"></i> Usage Notes</h3>
+    <ul>
+      <li>FinLog requires an active internet connection for syncing data across devices.</li>
+      <li>Always log out on shared devices and secure your account credentials.</li>
+      <li>We are not responsible for losses caused by misuse of the app or insecure account information.</li>
+      <li>Regular updates ensure you have the latest features and security enhancements.</li>
+    </ul>
+
+    <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+    <p>For questions, feedback, or support, reach us at <a href="mailto:support@finlog.com">support@finlog.com</a>. We value your feedback and strive to continuously improve FinLog to better serve your financial needs.</p>
+
+    <footer>
+      &copy; 2026 FinLog Expense Tracker. All rights reserved.<br>
+      <span style="font-size: 14px; margin-top: 5px; display: inline-block;">Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for better financial management</span>
+    </footer>
+  </div>
+
+  <script>
+    // Add some subtle interactivity
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add animation to feature cards on scroll
+      const featureCards = document.querySelectorAll('.feature-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      featureCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+      });
+      
+      // Back button animation
+      const backBtn = document.querySelector('.back');
+      backBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.style.transform = 'translateX(-8px)';
+        setTimeout(() => {
+          window.history.back();
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>
